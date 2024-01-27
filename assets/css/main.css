@@ -1731,6 +1731,8 @@ input, select, textarea {
 		margin-bottom: 0;
 	}
 
+
+
 /* Image */
 
 	.image {
@@ -1950,7 +1952,7 @@ input, select, textarea {
 					background-color: #51718A;
 				}
 
-				ul.social li a.fa-google-plus {
+				ul.social li a.fa-envelope {
 					background-color: #DA2713;
 				}
 
@@ -1966,15 +1968,15 @@ input, select, textarea {
 					background-color: #E0D7C8;
 				}
 
-				ul.social li a.fa-foursquare {
-					background-color: #39A3D4;
+				ul.social li a.fa-whatsapp {
+					background-color: #39d48c;
 				}
 
 				ul.social li a.fa-skype {
 					background-color: #10BEF1;
 				}
 
-				ul.social li a.fa-soundcloud {
+				ul.social li a.fa-mobile {
 					background-color: #FE5419;
 				}
 
