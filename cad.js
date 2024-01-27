@@ -18,6 +18,9 @@ initializeSlideIndex('project8');
 initializeSlideIndex('project9');
 initializeSlideIndex('project10');
 initializeSlideIndex('project11');
+initializeSlideIndex('project12');
+initializeSlideIndex('project13');
+initializeSlideIndex('project14');
 
 // Automatic slideshow
 function showSlides(project) {
@@ -73,3 +76,6 @@ showSlides('project8');
 showSlides('project9');
 showSlides('project10');
 showSlides('project11');
+showSlides('project12');
+showSlides('project13');
+showSlides('project14');
