@@ -1,552 +1,990 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html class="wide wow-animation" lang="en">
 <head>
-    <!-- Basic -->
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <!-- Site Metas -->
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-
-    <title>CAD Modeling </title>
-
-    <!-- bootstrap core css -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-    <!-- fonts style -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
-    <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet" />
-    <!-- responsive style -->
-    <link href="css/responsive.css" rel="stylesheet" />
-    <!-- Additional styles for background images -->
+    <title>CAD Models - Md Rahatuzzaman Roni</title>
+    
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Work+Sans:300,700,800%7CIBM+Plex+Sans:200,300,400,400i,600,700">
+    <link rel="stylesheet" href="css1/bootstrap.css">
+    <link rel="stylesheet" href="css1/fonts.css">
+    <link rel="stylesheet" href="css1/style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="roni.ico" type="image/x-icon">
+    
     <style>
-        .cad-project-box {
-            background-color: #000;
+        .ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} 
+        html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+            background-color: #206960;
             color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #185650;
+        }
+        
+        /* Model Banner Styles */
+        .model-banner {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
         }
 
-        .slideshow-container {
-            max-width: 1000px;
+        .model-banner:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .banner-slideshow {
             position: relative;
-            margin: auto;
-        }
-
-        .mySlides {
-            display: none;
-        }
-
-        .cad-image {
             width: 100%;
-            height: auto;
+            height: 250px;
+            overflow: hidden;
         }
 
-        /* Slideshow navigation styles */
-        .prev, .next {
+        .banner-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .banner-slide.active {
+            opacity: 1;
+        }
+
+        .banner-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .banner-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .banner-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #206960;
+            margin-bottom: 10px;
+        }
+
+        .banner-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 0;
+        }
+
+        /* Navigation dots on banner */
+        .banner-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .banner-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .banner-dot.active {
+            background: rgba(255,255,255,0.9);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 20px 30px;
+            background: linear-gradient(135deg, #206960, #185650);
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .modal-title {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close:hover {
+            opacity: 0.7;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-slideshow {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .modal-slide {
+            display: none;
+            text-align: center;
+        }
+
+        .modal-slide.active {
+            display: block;
+        }
+
+        .modal-slide img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .modal-nav {
             position: absolute;
             top: 50%;
-            width: auto;
-            padding: 16px;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.7);
             color: white;
-            font-weight: bold;
+            border: none;
+            padding: 15px 20px;
             font-size: 18px;
-            transition: 0.6s ease;
-            border-radius: 0 3px 3px 0;
             cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s ease;
         }
 
-        .prev {
-            left: 0;
-            border-radius: 3px 0 0 3px;
+        .modal-nav:hover {
+            background: rgba(0,0,0,0.9);
         }
 
-        .next {
-            right: 0;
-            border-radius: 3px 0 0 3px;
+        .modal-prev {
+            left: 10px;
         }
 
-        .prev:hover, .next:hover {
-            background-color: rgba(0, 0, 0, 0.8);
+        .modal-next {
+            right: 10px;
+        }
+
+        .modal-dots {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .modal-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .modal-dot.active {
+            background: #206960;
+        }
+
+        .model-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .detail-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #206960;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #206960;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            color: #333;
+            font-size: 16px;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .model-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+            
+            .modal-body {
+                padding: 20px;
+            }
         }
     </style>
 </head>
-
-<body class="sub_page">
-    <div class="hero_area">
-        <!-- header section starts -->
-        <header class="header_section">
-            <div class="container-fluid">
-                <nav class="navbar navbar-expand-lg custom_nav-container ">
-                    <h2>Md Rahatuzzaman Roni</h2><br>
-                    <span> <br>CAD MODELING</span>
-                </nav>
+<body>
+    <div class="page">
+        <!-- Overlapping Screen-->
+        <section class="section section-overlap bg-decorate">
+            <div class="section-overlap-image" style="background-image: url(images/sc1.jpg)"></div>
+            <div class="section-overlap-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-5 col-xl-4">
+                            <div class="wow-outer">
+                                <h6 class="font-weight-sbold text-primary wow slideInDown">I'M MD RAHATUZZAMAN RONI</h6>
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-lg-7 col-xl-6">
+                            <h1 class="wow-outer">
+                                <span class="font-weight-exlight wow-outer">
+                                    <span class="wow slideInUp" data-wow-delay=".1s">Explore My </span>
+                                </span>
+                                <span class="font-weight-bold wow-outer">
+                                    <span class="wow slideInUp">CAD Modeling</span>
+                                </span>
+                                <span class="font-weight-exlight wow-outer">
+                                    <span class="wow slideInUp" data-wow-delay=".1s">Portfolio</span>
+                                </span>
+                            </h1>
+                        </div>
+                        <div class="col-md-6 col-lg-5 col-xl-4 col-offset-1">
+                            <div class="wow-outer">
+                                <h4 class="font-weight-light wow slideInUp" data-wow-delay=".2s">Design • Model • Innovate</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </header>
-        <!-- end header section -->
-    </div>
+        </section>
 
-    <!-- Leadership and CAD Project section -->
-    <section class="event_section layout_padding cad-project-box">
-        <div class="container">
-            <div class="heading_container">
-                <h3>CAD MODELS</h3>
-                <p>Here are some of my CAD Models.</p>
+        <!-- CAD Models Gallery -->
+        <section class="section section-lg bg-default">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center mb-5">
+                        <h3 class="section-title wow-outer">
+                            <span class="wow slideInUp">CAD Models Gallery</span>
+                        </h3>
+                        <p class="section-subtitle">Click on any model banner to view details and all images</p>
+                    </div>
+                    
+                    <!-- Model Banners Grid -->
+                    <div class="col-12">
+                        <div class="row">
+                            
+                            <!-- Soap Case Banner -->
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="model-banner" onclick="openModal('soap-case')">
+                                    <div class="banner-slideshow" id="banner-soap-case">
+                                        <div class="banner-slide active">
+                                            <img src="images/sc1.jpg" alt="Soap Case 1">
+                                        </div>
+                                        <div class="banner-slide">
+                                            <img src="images/sc2.jpg" alt="Soap Case 2">
+                                        </div>
+                                        <div class="banner-slide">
+                                            <img src="images/sc3.jpg" alt="Soap Case 3">
+                                        </div>
+                                        <div class="banner-slide">
+                                            <img src="images/sc4.jpg" alt="Soap Case 4">
+                                        </div>
+                                        <div class="banner-dots">
+                                            <div class="banner-dot active"></div>
+                                            <div class="banner-dot"></div>
+                                            <div class="banner-dot"></div>
+                                            <div class="banner-dot"></div>
+                                        </div>
+                                    </div>
+                                    <div class="banner-info">
+                                        <div class="banner-title">Molding of a Soap Case</div>
+                                        <div class="banner-subtitle">SolidWorks • 2020</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mars Orbiter Banner -->
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="model-banner" onclick="openModal('mars-orbiter')">
+                                    <div class="banner-slideshow" id="banner-mars-orbiter">
+                                        <div class="banner-slide active">
+                                            <img src="images/sat1.jpg" alt="Mars Orbiter 1">
+                                        </div>
+                                        <div class="banner-slide">
+                                            <img src="images/sat2.jpg" alt="Mars Orbiter 2">
+                                        </div>
+                                        <div class="banner-slide">
+                                            <img src="images/sat3.jpg" alt="Mars Orbiter 3">
+                                        </div>
+                                        <div class="banner-slide">
+                                            <img src="images/sat4.jpg" alt="Mars Orbiter 4">
+                                        </div>
+                                        <div class="banner-slide">
+                                            <img src="images/sat5.jpg" alt="Mars Orbiter 5">
+                                        </div>
+                                        <div class="banner-dots">
+                                            <div class="banner-dot active"></div>
+                                            <div class="banner-dot"></div>
+                                            <div class="banner-dot"></div>
+                                            <div class="banner-dot"></div>
+                                            <div class="banner-dot"></div>
+                                        </div>
+                                    </div>
+                                    <div class="banner-info">
+                                        <div class="banner-title">Mars Orbiter Mission (MOM)</div>
+                                        <div class="banner-subtitle">SolidWorks • 2020</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Shock Absorber Banner -->
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="model-banner" onclick="openModal('shock-absorber')">
+                                    <div class="banner-slideshow" id="banner-shock-absorber">
+                                        <div class="banner-slide active">
+                                            <img src="images/spring.png" alt="Shock Absorber 1">
+                                        </div>
+                                        <div class="banner-slide">
+                                            <img src="images/spring1.png" alt="Shock Absorber 2">
+                                        </div>
+                                        <div class="banner-slide">
+                                            <img src="images/spring2.png" alt="Shock Absorber 3">
+                                        </div>
+                                        <div class="banner-slide">
+                                            <img src="images/spring3.png" alt="Shock Absorber 4">
+                                        </div>
+                                        <div class="banner-dots">
+                                            <div class="banner-dot active"></div>
+                                            <div class="banner-dot"></div>
+                                            <div class="banner-dot"></div>
+                                            <div class="banner-dot"></div>
+                                        </div>
+                                    </div>
+                                    <div class="banner-info">
+                                        <div class="banner-title">Shock Absorber of a Bike</div>
+                                        <div class="banner-subtitle">Fusion 360 • 2020</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Restaurant Table Banner -->
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="model-banner" onclick="openModal('restaurant-table')">
+                                    <div class="banner-slideshow" id="banner-restaurant-table">
+                                        <div class="banner-slide active">
+                                            <img src="images/t1.jpg" alt="Restaurant Table 1">
+                                        </div>
+                                        <div class="banner-slide">
+                                            <img src="images/t2.jpg" alt="Restaurant Table 2">
+                                        </div>
+                                        <div class="banner-dots">
+                                            <div class="banner-dot active"></div>
+                                            <div class="banner-dot"></div>
+                                        </div>
+                                    </div>
+                                    <div class="banner-info">
+                                        <div class="banner-title">Restaurant Table with AC System</div>
+                                        <div class="banner-subtitle">SolidWorks • 2020</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Chair Banner -->
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="model-banner" onclick="openModal('chair')">
+                                    <div class="banner-slideshow" id="banner-chair">
+                                        <div class="banner-slide active">
+                                            <img src="images/chair.jpg" alt="Chair">
+                                        </div>
+                                    </div>
+                                    <div class="banner-info">
+                                        <div class="banner-title">Ergonomic Chair Design</div>
+                                        <div class="banner-subtitle">SolidWorks • 2019</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- PC Fan Banner -->
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="model-banner" onclick="openModal('pc-fan')">
+                                    <div class="banner-slideshow" id="banner-pc-fan">
+                                        <div class="banner-slide active">
+                                            <img src="images/pcfan.jpg" alt="PC Fan">
+                                        </div>
+                                    </div>
+                                    <div class="banner-info">
+                                        <div class="banner-title">PC Cooling Fan Design</div>
+                                        <div class="banner-subtitle">SolidWorks • 2021</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bowl Banner -->
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="model-banner" onclick="openModal('bowl')">
+                                    <div class="banner-slideshow" id="banner-bowl">
+                                        <div class="banner-slide active">
+                                            <img src="images/bowl1.jpg" alt="Bowl 1">
+                                        </div>
+                                        <div class="banner-slide">
+                                            <img src="images/bowl2.jpg" alt="Bowl 2">
+                                        </div>
+                                        <div class="banner-slide">
+                                            <img src="images/bowl3.jpg" alt="Bowl 3">
+                                        </div>
+                                        <div class="banner-dots">
+                                            <div class="banner-dot active"></div>
+                                            <div class="banner-dot"></div>
+                                            <div class="banner-dot"></div>
+                                        </div>
+                                    </div>
+                                    <div class="banner-info">
+                                        <div class="banner-title">Molding of a Bowl</div>
+                                        <div class="banner-subtitle">SolidWorks • 2020</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Wheelchair Banner -->
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="model-banner" onclick="openModal('wheelchair')">
+                                    <div class="banner-slideshow" id="banner-wheelchair">
+                                        <div class="banner-slide active">
+                                            <img src="images/wc3.jpg" alt="Wheelchair 1">
+                                        </div>
+                                        <div class="banner-slide">
+                                            <img src="images/wc1.jpg" alt="Wheelchair 2">
+                                        </div>
+                                        <div class="banner-slide">
+                                            <img src="images/wc2.jpg" alt="Wheelchair 3">
+                                        </div>
+                                        <div class="banner-dots">
+                                            <div class="banner-dot active"></div>
+                                            <div class="banner-dot"></div>
+                                            <div class="banner-dot"></div>
+                                        </div>
+                                    </div>
+                                    <div class="banner-info">
+                                        <div class="banner-title">Wheelchair Design</div>
+                                        <div class="banner-subtitle">SolidWorks • 2020</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Globe Banner -->
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="model-banner" onclick="openModal('globe')">
+                                    <div class="banner-slideshow" id="banner-globe">
+                                        <div class="banner-slide active">
+                                            <img src="images/globe.jpg" alt="Globe">
+                                        </div>
+                                    </div>
+                                    <div class="banner-info">
+                                        <div class="banner-title">Educational Globe Design</div>
+                                        <div class="banner-subtitle">SolidWorks • 2019</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Volleyball Banner -->
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="model-banner" onclick="openModal('volleyball')">
+                                    <div class="banner-slideshow" id="banner-volleyball">
+                                        <div class="banner-slide active">
+                                            <img src="images/volly.jpg" alt="Volleyball">
+                                        </div>
+                                    </div>
+                                    <div class="banner-info">
+                                        <div class="banner-title">Volleyball Model</div>
+                                        <div class="banner-subtitle">SolidWorks • 2019</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Book Shelf Banner -->
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="model-banner" onclick="openModal('bookshelf')">
+                                    <div class="banner-slideshow" id="banner-bookshelf">
+                                        <div class="banner-slide active">
+                                            <img src="images/self.jpg" alt="Book Shelf">
+                                        </div>
+                                    </div>
+                                    <div class="banner-info">
+                                        <div class="banner-title">Modern Book Shelf</div>
+                                        <div class="banner-subtitle">SolidWorks • 2019</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Table with Shelf Banner -->
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="model-banner" onclick="openModal('table-shelf')">
+                                    <div class="banner-slideshow" id="banner-table-shelf">
+                                        <div class="banner-slide active">
+                                            <img src="images/rt1.jpg" alt="Table Shelf 1">
+                                        </div>
+                                        <div class="banner-slide">
+                                            <img src="images/rt2.jpg" alt="Table Shelf 2">
+                                        </div>
+                                        <div class="banner-dots">
+                                            <div class="banner-dot active"></div>
+                                            <div class="banner-dot"></div>
+                                        </div>
+                                    </div>
+                                    <div class="banner-info">
+                                        <div class="banner-title">Table with Integrated Book Shelf</div>
+                                        <div class="banner-subtitle">SolidWorks • 2019</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mars Rover Banner -->
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="model-banner" onclick="openModal('mars-rover')">
+                                    <div class="banner-slideshow" id="banner-mars-rover">
+                                        <div class="banner-slide active">
+                                            <img src="images/rover.jpg" alt="Mars Rover">
+                                        </div>
+                                    </div>
+                                    <div class="banner-info">
+                                        <div class="banner-title">Mars Rover Exploration Vehicle</div>
+                                        <div class="banner-subtitle">SolidWorks • 2019</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Rubik's Cube Banner -->
+                            <div class="col-md-6 col-lg-4 mb-4">
+                                <div class="model-banner" onclick="openModal('rubiks-cube')">
+                                    <div class="banner-slideshow" id="banner-rubiks-cube">
+                                        <div class="banner-slide active">
+                                            <img src="images/cube.jpg" alt="Rubik's Cube">
+                                        </div>
+                                    </div>
+                                    <div class="banner-info">
+                                        <div class="banner-title">Rubik's Cube Puzzle</div>
+                                        <div class="banner-subtitle">SolidWorks • 2019</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 text-center mt-4">
+                        <a href="index.html#portfolio" class="btn">Back to Home</a>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div class="event_container">
-                <!-- First CAD Project Box with Slideshow -->
-                <div class="box cad-project-box">
-                    <div class="slideshow-container">
-                        <!-- Add your project images as slides -->
-                        <div class="mySlides project1">
-                            <img class="cad-image" src="images/sc1.jpg" alt="Project Image 1">
-                        </div>
-                        <div class="mySlides project1">
-                            <img class="cad-image" src="images/sc2.jpg" alt="Project Image 2">
-                        </div>
-                        <div class="mySlides project1">
-                            <img class="cad-image" src="images/sc3.jpg" alt="Project Image 2">
-                        </div>
-                        <div class="mySlides project1">
-                            <img class="cad-image" src="images/sc4.jpg" alt="Project Image 2">
-                        </div>
-                        <!-- Add more slides as needed -->
-
-                        <!-- Slideshow navigation -->
-                        <a class="prev" onclick="plusSlides(-1, 'project1')">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1, 'project1')">&#10095;</a>
-                    </div>
-                    <div class="detail-box">
-                        <!-- Your project details -->
-                        <h2><strong>Molding of a Soap Case</strong></h2>
-                        <h4>Modeling Platform:</h4>
-                        <p>SolidWorks</p>
-                        <h4>Rendering Platform:</h4>
-                        <p>SolidWorks Visualize</p>
-                        <h4>Year:</h4>
-                        <p>2020</p>
-                    </div>
+        <!-- Modal -->
+        <div id="modelModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <h2 class="modal-title" id="modalTitle">Model Details</h2>
                 </div>
-                <!-- Fifth CAD Project Box with Slideshow -->
-                <div class="box cad-project-box">
-                    <div class="slideshow-container">
-                        <!-- Add your project images as slides -->
-                        <div class="mySlides project5">
-                            <img class="cad-image" src="images/sat1.jpg" alt="Project Image 1">
-                        </div>
-                        <div class="mySlides project5">
-                            <img class="cad-image" src="images/sat2.jpg" alt="Project Image 2">
-                        </div>
-                        <div class="mySlides project5">
-                            <img class="cad-image" src="images/sat3.jpg" alt="Project Image 3">
-                        </div>
-                        <div class="mySlides project5">
-                            <img class="cad-image" src="images/sat4.jpg" alt="Project Image 4">
-                        </div>
-                        <div class="mySlides project5">
-                            <img class="cad-image" src="images/sat5.jpg" alt="Project Image 5">
-                        </div>
-                        <!-- Add more slides as needed -->
-
-                        <!-- Slideshow navigation -->
-                        <a class="prev" onclick="plusSlides(-1, 'project5')">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1, 'project5')">&#10095;</a>
+                <div class="modal-body">
+                    <div class="modal-slideshow">
+                        <div id="modalSlides"></div>
+                        <button class="modal-nav modal-prev" onclick="changeModalSlide(-1)">&#10094;</button>
+                        <button class="modal-nav modal-next" onclick="changeModalSlide(1)">&#10095;</button>
                     </div>
-                    <div class="detail-box">
-                        <!-- Your project details -->
-                        <h2 style="text-align: center;"><strong>Mars Orbiter Mission (MOM) - Mangalyaan</strong></h2>
-                        <h4>Modeling Platform:</h4>
-                        <p>SolidWorks</p>
-                        <h4>Rendering Platform:</h4>
-                        <p>Keyshot</p>
-                        <h4>Year:</h4>
-                        <p>2020</p>
-                    </div>
-                </div>
-                <!-- 12th CAD Project Box with Slideshow -->
-                <div class="box cad-project-box">
-                    <div class="slideshow-container">
-                        <!-- Add your project images as slides -->
-                        <div class="mySlides project12">
-                            <img class="cad-image" src="images/spring.png" alt="Project Image 1">
-                        </div>
-                        <div class="mySlides project12">
-                            <img class="cad-image" src="images/spring1.png" alt="Project Image 1">
-                        </div>
-                        <div class="mySlides project12">
-                            <img class="cad-image" src="images/spring2.png" alt="Project Image 1">
-                        </div>
-                        <div class="mySlides project12">
-                            <img class="cad-image" src="images/spring3.png" alt="Project Image 1">
-                        </div>
-                        
-                        <!-- Add more slides as needed -->
-
-                        <!-- Slideshow navigation -->
-                        <a class="prev" onclick="plusSlides(-1, 'project12')">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1, 'project12')">&#10095;</a>
-                    </div>
-                    <div class="detail-box">
-                        <!-- Your project details -->
-                        <h2 style="text-align: center;"><strong>Shock Absorber of a Bike</strong></h2>
-                        <h4>Modeling Platform:</h4>
-                        <p>Autodesk Fusion 360</p>
-                        <h4>Rendering Platform:</h4>
-                        <p>Autodesk Fusion 360</p>
-                        <h4>Year:</h4>
-                        <p>2020</p>
-                    </div>
-                </div>
-                <!-- 13th CAD Project Box with Slideshow -->
-                <div class="box cad-project-box">
-                    <div class="slideshow-container">
-                        <!-- Add your project images as slides -->
-                        <div class="mySlides project13">
-                            <img class="cad-image" src="images/t1.jpg" alt="Project Image 1">
-                        </div>
-                        <div class="mySlides project13">
-                            <img class="cad-image" src="images/t2.jpg" alt="Project Image 1">
-                        </div>
-                        
-                        
-                        <!-- Add more slides as needed -->
-
-                        <!-- Slideshow navigation -->
-                        <a class="prev" onclick="plusSlides(-1, 'project13')">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1, 'project13')">&#10095;</a>
-                    </div>
-                    <div class="detail-box">
-                        <!-- Your project details -->
-                        <h2 style="text-align: center;"><strong>Restaurant Table with Integrated Air Conditioning System (Concept Model)</strong></h2>
-                        <h4>Modeling Platform:</h4>
-                        <p>SolidWorks</p>
-                        <h4>Rendering Platform:</h4>
-                        <p>Keyshot</p>
-                        <h4>Year:</h4>
-                        <p>2020</p>
-                    </div>
-                </div>
-                <!-- 14th CAD Project Box with Slideshow -->
-                <div class="box cad-project-box">
-                    <div class="slideshow-container">
-                        <!-- Add your project images as slides -->
-                        <div class="mySlides project14">
-                            <img class="cad-image" src="images/chair.jpg" alt="Project Image 1">
-                        </div>
-      
-                        <!-- Add more slides as needed -->
-
-                        <!-- Slideshow navigation -->
-                        <a class="prev" onclick="plusSlides(-1, 'project14')">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1, 'project14')">&#10095;</a>
-                    </div>
-                    <div class="detail-box">
-                        <!-- Your project details -->
-                        <h2 style="text-align: center;"><strong>Chair</strong></h2>
-                        <h4>Modeling Platform:</h4>
-                        <p>SolidWorks</p>
-                        <h4>Rendering Platform:</h4>
-                        <p>Keyshot</p>
-                        <h4>Year:</h4>
-                        <p>2019</p>
-                    </div>
-                </div>
-
-
-
-                <!-- Second CAD Project Box with Slideshow -->
-                <div class="box cad-project-box">
-                    <div class="slideshow-container">
-                        <!-- Add your project images as slides -->
-                        <div class="mySlides project2">
-                            <img class="cad-image" src="images/pcfan.jpg" alt="Project Image 1">
-                        </div>
-                        <div class="mySlides project2">
-                            <img class="cad-image" src="images/pcfan.jpg" alt="Project Image 2">
-                        </div>
-                        <div class="mySlides project2">
-                            <img class="cad-image" src="images/pcfan.jpg" alt="Project Image 2">
-                        </div>
-                        <div class="mySlides project2">
-                            <img class="cad-image" src="images/pcfan.jpg" alt="Project Image 2">
-                        </div>
-                        <!-- Add more slides as needed -->
-
-                        <!-- Slideshow navigation -->
-                        <a class="prev" onclick="plusSlides(-1, 'project2')">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1, 'project2')">&#10095;</a>
-                    </div>
-                    <div class="detail-box">
-                        <!-- Your project details -->
-                        <h2><strong>PC Fan</strong></h2>
-                        <h4>Modeling Platform:</h4>
-                        <p>SolidWorks</p>
-                        <h4>Rendering Platform:</h4>
-                        <p>Keyshot</p>
-                        <h4>Year:</h4>
-                        <p>2021</p>
-                    </div>
-                </div>
-                <!-- Third CAD Project Box with Slideshow -->
-                <div class="box cad-project-box">
-                    <div class="slideshow-container">
-                        <!-- Add your project images as slides -->
-                        <div class="mySlides project3">
-                            <img class="cad-image" src="images/bowl1.jpg" alt="Project Image 1">
-                        </div>
-                        <div class="mySlides project3">
-                            <img class="cad-image" src="images/bowl2.jpg" alt="Project Image 2">
-                        </div>
-                        <div class="mySlides project3">
-                            <img class="cad-image" src="images/bowl3.jpg" alt="Project Image 3">
-                        </div>
-                        <!--
-                        <div class="mySlides project3">
-                            <img class="cad-image" src="images/project3_image4.jpg" alt="Project Image 4">
-                        </div> -->
-                        <!-- Add more slides as needed -->
-
-                        <!-- Slideshow navigation -->
-                        <a class="prev" onclick="plusSlides(-1, 'project3')">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1, 'project3')">&#10095;</a>
-                    </div>
-                    <div class="detail-box">
-                        <!-- Your project details -->
-                        <h2><strong>Molding of a Bowl</strong></h2>
-                        <h4>Modeling Platform:</h4>
-                        <p>SolidWorks</p>
-                        <h4>Rendering Platform:</h4>
-                        <p>N/A</p>
-                        <h4>Year:</h4>
-                        <p>2020</p>
-                    </div>
-                </div>
-
-                <!-- Fourth CAD Project Box with Slideshow -->
-                <div class="box cad-project-box">
-                    <div class="slideshow-container">
-                        <!-- Add your project images as slides -->
-                        <div class="mySlides project4">
-                            <img class="cad-image" src="images/wc3.jpg" alt="Project Image 1">
-                        </div>
-                        <div class="mySlides project4">
-                            <img class="cad-image" src="images/wc1.jpg" alt="Project Image 2">
-                        </div>
-                        <div class="mySlides project4">
-                            <img class="cad-image" src="images/wc2.jpg" alt="Project Image 3">
-                        </div>
-                        
-                        <!-- Add more slides as needed -->
-
-                        <!-- Slideshow navigation -->
-                        <a class="prev" onclick="plusSlides(-1, 'project4')">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1, 'project4')">&#10095;</a>
-                    </div>
-                    <div class="detail-box">
-                        <!-- Your project details -->
-                        <h2><strong>Wheel Chair</strong></h2>
-                        <h4>Modeling Platform:</h4>
-                        <p>SolidWorks</p>
-                        <h4>Rendering Platform:</h4>
-                        <p>Keyshot</p>
-                        <h4>Year:</h4>
-                        <p>2020</p>
-                    </div>
-                </div>
-
-                <!-- Repeat the above structure for additional projects -->
-                
-                <!-- Sixth CAD Project Box with Slideshow -->
-                <div class="box cad-project-box">
-                    <div class="slideshow-container">
-                        <!-- Add your project images as slides -->
-                        <div class="mySlides project6">
-                            <img class="cad-image" src="images/globe.jpg" alt="Project Image 1">
-                        </div>
-                        <div class="mySlides project6">
-                            <img class="cad-image" src="images/globe.jpg" alt="Project Image 2">
-                        </div>
-                        
-                        <!-- Add more slides as needed -->
-
-                        <!-- Slideshow navigation -->
-                        <a class="prev" onclick="plusSlides(-1, 'project6')">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1, 'project6')">&#10095;</a>
-                    </div>
-                    <div class="detail-box">
-                        <!-- Your project details -->
-                        <h2><strong>Globe</strong></h2>
-                        <h4>Modeling Platform:</h4>
-                        <p>SolidWorks</p>
-                        <h4>Rendering Platform:</h4>
-                        <p>Keyshot</p>
-                        <h4>Year:</h4>
-                        <p>2019</p>
-                    </div>
-                </div>
-                <!-- Seventh CAD Project Box with Slideshow -->
-                <div class="box cad-project-box">
-                    <div class="slideshow-container">
-                        <!-- Add your project images as slides -->
-                        <div class="mySlides project7">
-                            <img class="cad-image" src="images/volly.jpg" alt="Project Image 1">
-                        </div>
-                        <div class="mySlides project7">
-                            <img class="cad-image" src="images/volly.jpg" alt="Project Image 2">
-                        </div>
-                        
-                        <!-- Add more slides as needed -->
-
-                        <!-- Slideshow navigation -->
-                        <a class="prev" onclick="plusSlides(-1, 'project7')">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1, 'project7')">&#10095;</a>
-                    </div>
-                    <div class="detail-box">
-                        <!-- Your project details -->
-                        <h2><strong>Volley Ball</strong></h2>
-                        <h4>Modeling Platform:</h4>
-                        <p>SolidWorks</p>
-                        <h4>Rendering Platform:</h4>
-                        <p>Keyshot</p>
-                        <h4>Year:</h4>
-                        <p>2019</p>
-                    </div>
-                </div>
-
-                <!-- Eighth CAD Project Box with Slideshow -->
-                <div class="box cad-project-box">
-                    <div class="slideshow-container">
-                        <!-- Add your project images as slides -->
-                        <div class="mySlides project8">
-                            <img class="cad-image" src="images/self.jpg" alt="Project Image 1">
-                        </div>
-                        <div class="mySlides project8">
-                            <img class="cad-image" src="images/self.jpg" alt="Project Image 2">
-                        </div>
-                        
-                        <!-- Add more slides as needed -->
-
-                        <!-- Slideshow navigation -->
-                        <a class="prev" onclick="plusSlides(-1, 'project8')">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1, 'project8')">&#10095;</a>
-                    </div>
-                    <div class="detail-box">
-                        <!-- Your project details -->
-                        <h2><strong>Book Shelf</strong></h2>
-                        <h4>Modeling Platform:</h4>
-                        <p>SolidWorks</p>
-                        <h4>Rendering Platform:</h4>
-                        <p>Keyshot</p>
-                        <h4>Year:</h4>
-                        <p>2019</p>
-                    </div>
-                </div>
-                <!-- 9th CAD Project Box with Slideshow -->
-                <div class="box cad-project-box">
-                    <div class="slideshow-container">
-                        <!-- Add your project images as slides -->
-                        <div class="mySlides project9">
-                            <img class="cad-image" src="images/rt1.jpg" alt="Project Image 1">
-                        </div>
-                        <div class="mySlides project9">
-                            <img class="cad-image" src="images/rt2.jpg" alt="Project Image 2">
-                        </div>
-                        
-                        <!-- Add more slides as needed -->
-
-                        <!-- Slideshow navigation -->
-                        <a class="prev" onclick="plusSlides(-1, 'project9')">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1, 'project9')">&#10095;</a>
-                    </div>
-                    <div class="detail-box">
-                        <!-- Your project details -->
-                        <h2><strong>Table with Book Shelf </strong></h2>
-                        <h4>Modeling Platform:</h4>
-                        <p>SolidWorks</p>
-                        <h4>Rendering Platform:</h4>
-                        <p>Keyshot</p>
-                        <h4>Year:</h4>
-                        <p>2019</p>
-                    </div>
-                </div>
-
-                <!-- 10th CAD Project Box with Slideshow -->
-                <div class="box cad-project-box">
-                    <div class="slideshow-container">
-                        <!-- Add your project images as slides -->
-                        <div class="mySlides project10">
-                            <img class="cad-image" src="images/rover.jpg" alt="Project Image 1">
-                        </div>
-                        <div class="mySlides project10">
-                            <img class="cad-image" src="images/rover.jpg" alt="Project Image 2">
-                        </div>
-                        
-                        <!-- Add more slides as needed -->
-
-                        <!-- Slideshow navigation -->
-                        <a class="prev" onclick="plusSlides(-1, 'project10')">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1, 'project10')">&#10095;</a>
-                    </div>
-                    <div class="detail-box">
-                        <!-- Your project details -->
-                        <h2><strong>Mars Rover</strong></h2>
-                        <h4>Modeling Platform:</h4>
-                        <p>SolidWorks</p>
-                        <h4>Rendering Platform:</h4>
-                        <p>Keyshot</p>
-                        <h4>Year:</h4>
-                        <p>2019</p>
-                    </div>
-                </div>
-                <!-- 11th CAD Project Box with Slideshow -->
-                <div class="box cad-project-box">
-                    <div class="slideshow-container">
-                        <!-- Add your project images as slides -->
-                        <div class="mySlides project11">
-                            <img class="cad-image" src="images/cube.jpg" alt="Project Image 1">
-                        </div>
-                        <div class="mySlides project11">
-                            <img class="cad-image" src="images/cube.jpg" alt="Project Image 2">
-                        </div>
-                        
-                        <!-- Add more slides as needed -->
-
-                        <!-- Slideshow navigation -->
-                        <a class="prev" onclick="plusSlides(-1, 'project11')">&#10094;</a>
-                        <a class="next" onclick="plusSlides(1, 'project11')">&#10095;</a>
-                    </div>
-                    <div class="detail-box">
-                        <!-- Your project details -->
-                        <h2><strong>Rubik's Cube</strong></h2>
-                        <h4>Modeling Platform:</h4>
-                        <p>SolidWorks</p>
-                        <h4>Rendering Platform:</h4>
-                        <p>Keyshot</p>
-                        <h4>Year:</h4>
-                        <p>2019</p>
-                    </div>
-                </div>
-
-
-                <!-- Add more CAD project entries as needed -->
-
-                <!-- ... Your existing code ... -->
-                <div class="btn-box">
-                    <a href="index.html#portfolio">Back to home</a>
+                    <div class="modal-dots" id="modalDots"></div>
+                    <div class="model-details" id="modelDetails"></div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- JavaScript for slideshow functionality -->
-    <script src="cad.js"></script>
+    <!-- Javascript-->
+    <script src="js/core.min.js"></script>
+    <script src="js/script.js"></script>
+    
+    <script>
+        // Model data
+        const modelData = {
+            'soap-case': {
+                title: 'Molding of a Soap Case',
+                images: ['images/sc1.jpg', 'images/sc2.jpg', 'images/sc3.jpg', 'images/sc4.jpg'],
+                modelingPlatform: 'SolidWorks',
+                renderingPlatform: 'SolidWorks Visualize',
+                year: '2020',
+                description: 'Complete molding design for a soap case including manufacturing considerations and material flow analysis.'
+            },
+            'mars-orbiter': {
+                title: 'Mars Orbiter Mission (MOM) - Mangalyaan',
+                images: ['images/sat1.jpg', 'images/sat2.jpg', 'images/sat3.jpg', 'images/sat4.jpg', 'images/sat5.jpg'],
+                modelingPlatform: 'SolidWorks',
+                renderingPlatform: 'Keyshot',
+                year: '2020',
+                description: 'Detailed 3D model of India\'s Mars Orbiter Mission spacecraft with accurate proportions and components.'
+            },
+            'shock-absorber': {
+                title: 'Shock Absorber of a Bike',
+                images: ['images/spring.png', 'images/spring1.png', 'images/spring2.png', 'images/spring3.png'],
+                modelingPlatform: 'Autodesk Fusion 360',
+                renderingPlatform: 'Autodesk Fusion 360',
+                year: '2020',
+                description: 'Engineering model of motorcycle shock absorber system with detailed spring and damper components.'
+            },
+            'restaurant-table': {
+                title: 'Restaurant Table with Integrated Air Conditioning System',
+                images: ['images/t1.jpg', 'images/t2.jpg'],
+                modelingPlatform: 'SolidWorks',
+                renderingPlatform: 'Keyshot',
+                year: '2020',
+                description: 'Innovative concept design combining furniture with climate control for enhanced dining experience.'
+            },
+            'chair': {
+                title: 'Ergonomic Chair Design',
+                images: ['images/chair.jpg'],
+                modelingPlatform: 'SolidWorks',
+                renderingPlatform: 'Keyshot',
+                year: '2019',
+                description: 'Modern ergonomic chair design focusing on comfort and aesthetic appeal.'
+            },
+            'pc-fan': {
+                title: 'PC Cooling Fan Design',
+                images: ['images/pcfan.jpg'],
+                modelingPlatform: 'SolidWorks',
+                renderingPlatform: 'Keyshot',
+                year: '2021',
+                description: 'Computer cooling fan with optimized blade geometry for maximum airflow efficiency.'
+            },
+            'bowl': {
+                title: 'Molding of a Bowl',
+                images: ['images/bowl1.jpg', 'images/bowl2.jpg', 'images/bowl3.jpg'],
+                modelingPlatform: 'SolidWorks',
+                renderingPlatform: 'N/A',
+                year: '2020',
+                description: 'Bowl design with molding analysis showing parting lines and draft angles for manufacturing.'
+            },
+            'wheelchair': {
+                title: 'Wheelchair Design',
+                images: ['images/wc3.jpg', 'images/wc1.jpg', 'images/wc2.jpg'],
+                modelingPlatform: 'SolidWorks',
+                renderingPlatform: 'Keyshot',
+                year: '2020',
+                description: 'Accessible wheelchair design with focus on user comfort and mobility.'
+            },
+            'globe': {
+                title: 'Educational Globe Design',
+                images: ['images/globe.jpg'],
+                modelingPlatform: 'SolidWorks',
+                renderingPlatform: 'Keyshot',
+                year: '2019',
+                description: 'Traditional educational globe with detailed geographical features and stand design.'
+            },
+            'volleyball': {
+                title: 'Volleyball Model',
+                images: ['images/volly.jpg'],
+                modelingPlatform: 'SolidWorks',
+                renderingPlatform: 'Keyshot',
+                year: '2019',
+                description: 'Realistic volleyball model with accurate surface texture and proportions.'
+            },
+            'bookshelf': {
+                title: 'Modern Book Shelf',
+                images: ['images/self.jpg'],
+                modelingPlatform: 'SolidWorks',
+                renderingPlatform: 'Keyshot',
+                year: '2019',
+                description: 'Contemporary bookshelf design with clean lines and functional storage compartments.'
+            },
+            'table-shelf': {
+                title: 'Table with Integrated Book Shelf',
+                images: ['images/rt1.jpg', 'images/rt2.jpg'],
+                modelingPlatform: 'SolidWorks',
+                renderingPlatform: 'Keyshot',
+                year: '2019',
+                description: 'Multi-functional furniture piece combining workspace and storage in compact design.'
+            },
+            'mars-rover': {
+                title: 'Mars Rover Exploration Vehicle',
+                images: ['images/rover.jpg'],
+                modelingPlatform: 'SolidWorks',
+                renderingPlatform: 'Keyshot',
+                year: '2019',
+                description: 'Detailed model of Mars exploration rover with realistic components and mechanisms.'
+            },
+            'rubiks-cube': {
+                title: 'Rubik\'s Cube Puzzle',
+                images: ['images/cube.jpg'],
+                modelingPlatform: 'SolidWorks',
+                renderingPlatform: 'Keyshot',
+                year: '2019',
+                description: 'Classic 3x3 Rubik\'s cube with accurate colors and proportions.'
+            }
+        };
 
+        // Banner slideshow variables
+        let bannerSlideIndexes = {};
+        let bannerIntervals = {};
+        let currentModalSlide = 0;
+        let currentModelData = null;
 
-    <!-- ... Your existing code ... -->
+        // Initialize banner slideshows
+        document.addEventListener('DOMContentLoaded', function() {
+            Object.keys(modelData).forEach(modelId => {
+                bannerSlideIndexes[modelId] = 0;
+                if (modelData[modelId].images.length > 1) {
+                    startBannerSlideshow(modelId);
+                }
+            });
+        });
+
+        function startBannerSlideshow(modelId) {
+            bannerIntervals[modelId] = setInterval(() => {
+                nextBannerSlide(modelId);
+            }, 3000); // Change slide every 3 seconds
+        }
+
+        function nextBannerSlide(modelId) {
+            const banner = document.getElementById(`banner-${modelId}`);
+            if (!banner) return;
+
+            const slides = banner.querySelectorAll('.banner-slide');
+            const dots = banner.querySelectorAll('.banner-dot');
+            const images = modelData[modelId].images;
+
+            // Hide current slide
+            slides[bannerSlideIndexes[modelId]].classList.remove('active');
+            if (dots[bannerSlideIndexes[modelId]]) {
+                dots[bannerSlideIndexes[modelId]].classList.remove('active');
+            }
+
+            // Move to next slide
+            bannerSlideIndexes[modelId] = (bannerSlideIndexes[modelId] + 1) % images.length;
+
+            // Show new slide
+            slides[bannerSlideIndexes[modelId]].classList.add('active');
+            if (dots[bannerSlideIndexes[modelId]]) {
+                dots[bannerSlideIndexes[modelId]].classList.add('active');
+            }
+        }
+
+        // Modal functions
+        function openModal(modelId) {
+            currentModelData = modelData[modelId];
+            currentModalSlide = 0;
+
+            const modal = document.getElementById('modelModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalSlides = document.getElementById('modalSlides');
+            const modalDots = document.getElementById('modalDots');
+            const modelDetails = document.getElementById('modelDetails');
+
+            // Set title
+            modalTitle.textContent = currentModelData.title;
+
+            // Create slides
+            modalSlides.innerHTML = '';
+            currentModelData.images.forEach((image, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'modal-slide' + (index === 0 ? ' active' : '');
+                slide.innerHTML = `<img src="${image}" alt="${currentModelData.title} ${index + 1}">`;
+                modalSlides.appendChild(slide);
+            });
+
+            // Create dots
+            modalDots.innerHTML = '';
+            if (currentModelData.images.length > 1) {
+                currentModelData.images.forEach((_, index) => {
+                    const dot = document.createElement('span');
+                    dot.className = 'modal-dot' + (index === 0 ? ' active' : '');
+                    dot.onclick = () => goToModalSlide(index);
+                    modalDots.appendChild(dot);
+                });
+            }
+
+            // Create details
+            modelDetails.innerHTML = `
+                <div class="detail-item">
+                    <div class="detail-label">Modeling Platform</div>
+                    <div class="detail-value">${currentModelData.modelingPlatform}</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Rendering Platform</div>
+                    <div class="detail-value">${currentModelData.renderingPlatform}</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Year</div>
+                    <div class="detail-value">${currentModelData.year}</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Description</div>
+                    <div class="detail-value">${currentModelData.description}</div>
+                </div>
+            `;
+
+            // Show modal
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+
+            // Hide navigation if only one image
+            const navButtons = modal.querySelectorAll('.modal-nav');
+            navButtons.forEach(btn => {
+                btn.style.display = currentModelData.images.length > 1 ? 'block' : 'none';
+            });
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modelModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeModalSlide(direction) {
+            if (!currentModelData) return;
+
+            const slides = document.querySelectorAll('.modal-slide');
+            const dots = document.querySelectorAll('.modal-dot');
+
+            // Hide current slide
+            slides[currentModalSlide].classList.remove('active');
+            if (dots[currentModalSlide]) {
+                dots[currentModalSlide].classList.remove('active');
+            }
+
+            // Calculate new slide index
+            currentModalSlide += direction;
+            if (currentModalSlide >= currentModelData.images.length) {
+                currentModalSlide = 0;
+            } else if (currentModalSlide < 0) {
+                currentModalSlide = currentModelData.images.length - 1;
+            }
+
+            // Show new slide
+            slides[currentModalSlide].classList.add('active');
+            if (dots[currentModalSlide]) {
+                dots[currentModalSlide].classList.add('active');
+            }
+        }
+
+        function goToModalSlide(slideIndex) {
+            if (!currentModelData) return;
+
+            const slides = document.querySelectorAll('.modal-slide');
+            const dots = document.querySelectorAll('.modal-dot');
+
+            // Hide current slide
+            slides[currentModalSlide].classList.remove('active');
+            if (dots[currentModalSlide]) {
+                dots[currentModalSlide].classList.remove('active');
+            }
+
+            // Show target slide
+            currentModalSlide = slideIndex;
+            slides[currentModalSlide].classList.add('active');
+            if (dots[currentModalSlide]) {
+                dots[currentModalSlide].classList.add('active');
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('modelModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            const modal = document.getElementById('modelModal');
+            if (modal.style.display === 'block') {
+                if (event.key === 'Escape') {
+                    closeModal();
+                } else if (event.key === 'ArrowLeft') {
+                    changeModalSlide(-1);
+                } else if (event.key === 'ArrowRight') {
+                    changeModalSlide(1);
+                }
+            }
+        });
+
+        // Pause banner slideshows on hover
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.model-banner').forEach(banner => {
+                const modelId = banner.onclick.toString().match(/'([^']+)'/)[1];
+                
+                banner.addEventListener('mouseenter', () => {
+                    if (bannerIntervals[modelId]) {
+                        clearInterval(bannerIntervals[modelId]);
+                    }
+                });
+                
+                banner.addEventListener('mouseleave', () => {
+                    if (modelData[modelId].images.length > 1) {
+                        startBannerSlideshow(modelId);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
-
 </html>
